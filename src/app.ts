@@ -20,7 +20,7 @@ app.use('/api/v1', routes);
 
 //Testing
 app.get('/', (req: Request, res: Response) => {
-  res.send('Working Successfully');
+  res.send('Welcome to My Book-Catalog API!!!');
 });
 
 app.get('*', (req: Request, res: Response, next: NextFunction) => {
