@@ -1,40 +1,43 @@
-import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import express, { Application, NextFunction, Request, Response } from 'express';
+import express, { Application, Request, Response } from 'express';
+import globalErrorHandler from './app/middleware/globalErrorHandler';
 import httpStatus from 'http-status';
-import globalErrorHandler from './app/middlewares/globalErrorHandler';
 import routes from './app/routes';
-import ApiError from './errors/ApiError';
 
-const app: Application = express();
+const app: Application = express(); // Create an instance of the Express application
 
-app.use(cors());
+// Application Middleware
+app.use(cors()); // Enable Cross-Origin Resource Sharing
+app.use(express.json()); // Parse JSON request bodies
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded request bodies
 
-//parser
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-
-// Application Routs
+// Central Routes
 app.use('/api/v1', routes);
 
-//Testing
-app.get('/', (req: Request, res: Response) => {
-  res.send('Working Successfully');
+// Welcome api
+app.get('/', async (req: Request, res: Response) => {
+  res.status(200).json({
+    message: 'Welcome To The Book Eater',
+  });
 });
 
-app.get('*', (req: Request, res: Response, next: NextFunction) => {
-  const message = 'Not Found';
-  const errorObjs = [
-    {
-      path: `${req.originalUrl}`,
-      message: `Invalid URL! API not found`,
-    },
-  ];
-  next(new ApiError(message, httpStatus.NOT_FOUND, errorObjs));
+// ErrorRoute for undefined apis
+app.use((req: Request, res: Response) => {
+  // Return a JSON response with the appropriate status code and error message
+  return res.status(httpStatus.NOT_FOUND).json({
+    success: false,
+    message: 'API not found',
+    errorMessages: [
+      {
+        path: req.originalUrl,
+        message: 'API not found',
+      },
+    ],
+  });
 });
 
-// global error handaler
+// Global Error Handler
+// Middleware to handle errors globally and send standardized error responses
 app.use(globalErrorHandler);
 
 export default app;
