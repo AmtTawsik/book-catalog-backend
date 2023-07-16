@@ -1,26 +1,36 @@
 import express from 'express';
-import { UserRoutes } from '../modules/user/user.route';
-import { AuthRoutes } from '../modules/auth/auth.route';
-import { BookRoutes } from '../modules/book/book.route';
+import bookRoutes from '../modules/books/book.route';
+import reviewRoutes from '../modules/reviews/review.route';
+import trackRoutes from '../modules/track/track.route';
+import userRoutes from '../modules/users/user.route';
+import wishlistRoutes from '../modules/wishlist/wishlist.route';
+
 const router = express.Router();
 
-// Defining an array of module routes to be mounted on the router
 const moduleRoutes = [
   {
-    path: '/users',
-    route: UserRoutes,
+    path: '/user',
+    route: userRoutes,
   },
   {
-    path: '/auth',
-    route: AuthRoutes,
+    path: '/book',
+    route: bookRoutes,
   },
   {
-    path: '/books',
-    route: BookRoutes,
+    path: '/review',
+    route: reviewRoutes,
+  },
+  {
+    path: '/wishlist',
+    route: wishlistRoutes,
+  },
+  {
+    path: '/track',
+    route: trackRoutes,
   },
 ];
 
-// Iterate over the moduleRoutes array and mount each route on the router
+// Application Routes
 moduleRoutes.forEach(route => router.use(route.path, route.route));
 
 export default router;
