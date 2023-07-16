@@ -12,9 +12,8 @@ const createReviewToDB = async (
   userId: string
 ): Promise<IReview> => {
   review.userId = userId;
-  const createReview = (
-    await (await Review.create(review)).populate('book')
-  ).populate('userId');
+
+  const createReview = (await Review.create(review)).populate('userId');
   return createReview;
 };
 
@@ -43,7 +42,7 @@ const getAllReviewFromDB = async (
   }
 
   const result = await Review.find(whereConditions)
-    .populate('book')
+    .populate('userId')
     .sort(sortConditions)
     .skip(skip)
     .limit(limit);

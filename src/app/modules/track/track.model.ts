@@ -16,7 +16,7 @@ const trackSchema = new Schema<ITrack, TrackModel>(
     status: {
       type: String,
       enum: status,
-      default: 'notStarted',
+      default: 'Not started',
     },
   },
   {

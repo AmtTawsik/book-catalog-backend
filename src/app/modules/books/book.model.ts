@@ -31,7 +31,7 @@ const bookSchema = new Schema<IBook, BookModel>(
     },
     description: {
       type: String,
-      default: 'Will be add soon',
+      required: true,
     },
   },
   {

@@ -2,7 +2,7 @@ import { Model, Types } from 'mongoose';
 import { IBook } from '../books/book.interface';
 import { IUser } from '../users/user.interface';
 
-export type IStatus = 'notStarted' | 'reading' | 'soon' | 'finished';
+export type IStatus = 'Not started' | 'reading' | 'soon' | 'finished';
 
 export type ITrack = {
   book: Types.ObjectId | IBook;

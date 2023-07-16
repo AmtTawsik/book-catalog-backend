@@ -17,6 +17,9 @@ export const createBookZodSchema = z.object({
     image: z.string({
       required_error: 'Image is required',
     }),
+    description: z.string({
+      required_error: 'Description is required',
+    }),
   }),
 });
 
@@ -27,5 +30,6 @@ export const updateBookZodSchema = z.object({
     genre: z.string().optional(),
     publication: z.string().optional(),
     image: z.string().optional(),
+    description: z.string().optional(),
   }),
 });

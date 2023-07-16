@@ -9,4 +9,4 @@ export const tracklistFilterableFields = [
   'status',
 ];
 
-export const status: IStatus[] = ['notStarted', 'reading', 'soon', 'finished'];
+export const status: IStatus[] = ['Not started', 'reading', 'soon', 'finished'];
